@@ -3,15 +3,14 @@ package com.akashbakshi.eventchatrapi.Controller
 import com.akashbakshi.eventchatrapi.Entity.Event
 import com.akashbakshi.eventchatrapi.Repository.EventRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Sort
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.lang.Exception
 import java.time.LocalDateTime
 import java.time.ZoneOffset
-import java.util.*
+import javax.swing.SortOrder
 import javax.validation.Valid
-import javax.xml.ws.Response
 
 @RestController()
 @RequestMapping("/api/event/")
@@ -28,6 +27,23 @@ class EventController(@Autowired val eventRepo:EventRepository) {
 
         return ResponseEntity(singleEvent,HttpStatus.OK)
     }
+
+    @GetMapping("/orderByPostedMostRecent")
+    fun getEventsByPostDateDesc():List<Event> = eventRepo.findAll(Sort.by(Sort.Direction.DESC,"updatedAt"))
+
+
+    @GetMapping("/orderByPostedOldest")
+    fun getEventsByPostDateAsc():List<Event> = eventRepo.findAll(Sort.by(Sort.Direction.ASC,"updatedAt"))
+
+    @GetMapping("/orderByLiveMostRecent")
+    fun getEventsByLiveDateDesc():List<Event> = eventRepo.findAll(Sort.by(Sort.Direction.DESC,"liveOn"))
+
+
+    @GetMapping("/orderByLiveOldest")
+    fun getEventsByLiveDateAsc():List<Event> = eventRepo.findAll(Sort.by(Sort.Direction.ASC,"liveOn˚"))
+
+
+
 
     @PostMapping("/add")
     fun addEvent(@Valid @RequestBody event:Event):ResponseEntity<Any>{
