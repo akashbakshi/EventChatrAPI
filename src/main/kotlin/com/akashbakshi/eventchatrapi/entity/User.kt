@@ -1,5 +1,8 @@
 package com.akashbakshi.eventchatrapi.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import javax.persistence.*
 import javax.validation.constraints.NotEmpty
 
@@ -14,10 +17,12 @@ data class User (
     @Column(unique = true)
     private var email:String = "",
 
-
     @NotEmpty
-    private var password:String =""
+    private var password:String ="",
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "author",fetch = FetchType.LAZY ,cascade = [CascadeType.ALL])
+    var events: List<Event> = emptyList<Event>()
 
 ){
 
@@ -28,4 +33,9 @@ data class User (
     fun setPassword(pass:String){
         this.password = pass
     }
+
+    override fun toString(): String {
+        return "$username $email"
+    }
+
 }

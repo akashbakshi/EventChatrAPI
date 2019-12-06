@@ -19,12 +19,15 @@ class UserServiceImpl(@Autowired val userRepo:UserRepository):UserService {
     }
 
     override fun getAllUsers(): List<User> {
-        return userRepo.findAll()
+        val allUsers =  userRepo.findAll()
+        return allUsers
     }
     override fun addUser(user: User) {
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()))
         userRepo.save(user)
     }
+
+
 
     override fun authenticateUser(username: String, password: String):User? {
         val userToAuth = userRepo.findByUsername(username)
@@ -39,8 +42,8 @@ class UserServiceImpl(@Autowired val userRepo:UserRepository):UserService {
         }
     }
 
-    override fun updateUser(name: String, user: User) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun updateUser( user: User) {
+        userRepo.save(user)
     }
 
     override fun deleteUser(name: String) {
