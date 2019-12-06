@@ -23,9 +23,10 @@ class EventService(@Autowired val userService: UserService,val eventRepo:EventRe
         fun saveEvent(event:Event):ResponseEntity<Any>{
             var events: List<Event> = emptyList<Event>()
 
+            val author = userService.getUser(event.author!!.getUsername())
+                    ?: return ResponseEntity("Could not save event because author's username is invalid", HttpStatus.BAD_REQUEST)
 
             try{
-                val author = userService.getUser(event.author!!.getUsername())
                 event.author = author
                 events+=event
                 author.events = events

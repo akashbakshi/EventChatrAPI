@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository
 import javax.transaction.Transactional
 
 interface UserRepository : JpaRepository<User,Long>{
-    fun findByUsername(username:String):User
-    fun findByEmail(email:String):User
+    fun findByUsername(username:String):User?
+    fun findByEmail(email:String):User?
 
     @Query("delete from users where username = ?1",nativeQuery = true)
     @Modifying
