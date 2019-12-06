@@ -1,7 +1,7 @@
-package com.akashbakshi.eventchatrapi.Controller
+package com.akashbakshi.eventchatrapi.controller
 
-import com.akashbakshi.eventchatrapi.Entity.Event
-import com.akashbakshi.eventchatrapi.Repository.EventRepository
+import com.akashbakshi.eventchatrapi.entity.Event
+import com.akashbakshi.eventchatrapi.repository.EventRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Sort
 import org.springframework.http.HttpStatus
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 import java.time.ZoneOffset
-import javax.swing.SortOrder
 import javax.validation.Valid
 
 @RestController()

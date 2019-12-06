@@ -1,12 +1,11 @@
-package com.akashbakshi.eventchatrapi.Entity
+package com.akashbakshi.eventchatrapi.entity
 
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.util.*
-import javax.annotation.Generated
 import javax.persistence.*
 
-@Entity()
+@Entity
 data class Event (
 
         @Id
