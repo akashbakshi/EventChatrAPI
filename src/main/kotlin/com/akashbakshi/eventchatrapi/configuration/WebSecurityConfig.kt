@@ -1,4 +1,4 @@
-package com.akashbakshi.eventchatrapi.Configuration
+package com.akashbakshi.eventchatrapi.configuration
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
