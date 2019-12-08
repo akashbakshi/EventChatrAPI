@@ -1,16 +1,13 @@
 package com.akashbakshi.eventchatrapi.controller
 
+import com.akashbakshi.eventchatrapi.EventchatrapiApplication
 import com.akashbakshi.eventchatrapi.entity.Event
-import com.akashbakshi.eventchatrapi.repository.EventRepository
 import com.akashbakshi.eventchatrapi.service.EventService
-import com.akashbakshi.eventchatrapi.service.UserService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Sort
-import org.springframework.http.HttpStatus
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 import javax.validation.Valid
 
 @RestController()
@@ -42,33 +39,39 @@ class EventController(val eventService:EventService) {
 
 
     @PostMapping("/add")
-    fun addEvent(@Valid @RequestBody event:Event):ResponseEntity<Any> = eventService.saveEvent(event)
-/*
-    @PutMapping("update/{eventId}")
-    fun updateEvent(@Valid @RequestBody updatedEvent:Event,@PathVariable eventId:Long): String =
+    fun addEvent(@Valid @RequestBody event:Event):ResponseEntity<Any> {
 
-        eventRepo.findById(eventId).map {
-            if(it.content != updatedEvent.content && !updatedEvent.content.isNullOrEmpty())
-                it.content = updatedEvent.content
+        val logger: Logger = LoggerFactory.getLogger(EventController::class.java)
+        logger.info(event.toString())
+        return eventService.saveEvent(event)
+    }
+        /*
+            @PutMapping("update/{eventId}")
+            fun updateEvent(@Valid @RequestBody updatedEvent:Event,@PathVariable eventId:Long): String =
 
-            if(it.name != updatedEvent.name && !updatedEvent.name.isNullOrEmpty())
-                it.name = updatedEvent.name
+                eventRepo.findById(eventId).map {
+                    if(it.content != updatedEvent.content && !updatedEvent.content.isNullOrEmpty())
+                        it.content = updatedEvent.content
 
-            if(it.liveOn != updatedEvent.liveOn && !updatedEvent.liveOn.toString().isNullOrEmpty())
-                it.liveOn = updatedEvent.liveOn
+                    if(it.name != updatedEvent.name && !updatedEvent.name.isNullOrEmpty())
+                        it.name = updatedEvent.name
 
-            it.updatedAt = java.sql.Timestamp.valueOf(LocalDateTime.now(ZoneOffset.UTC))
-            eventRepo.save(it)
-            return@map "Successfully updated Event with Id $eventId\n $it"
-        }.orElseGet{
+                    if(it.liveOn != updatedEvent.liveOn && !updatedEvent.liveOn.toString().isNullOrEmpty())
+                        it.liveOn = updatedEvent.liveOn
 
-            return@orElseGet "Could not update event because Id is invalid"
-        }
+                    it.updatedAt = java.sql.Timestamp.valueOf(LocalDateTime.now(ZoneOffset.UTC))
+                    eventRepo.save(it)
+                    return@map "Successfully updated Event with Id $eventId\n $it"
+                }.orElseGet{
+
+                    return@orElseGet "Could not update event because Id is invalid"
+                }
 
 
 
- */
-    @DeleteMapping("delete/{eventId}")
-    fun deleteEvent(@PathVariable  eventId:Long):ResponseEntity<Any> = eventService.deleteSingleEvent(eventId)
+         */
+        @DeleteMapping("delete/{eventId}")
+        fun deleteEvent(@PathVariable  eventId:Long):ResponseEntity<Any> = eventService.deleteSingleEvent(eventId)
+
 
 }
