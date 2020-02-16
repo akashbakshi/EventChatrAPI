@@ -10,8 +10,8 @@
     </parent>
     <groupId>com.akashbakshi</groupId>
     <artifactId>eventchatrapi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>eventchatrapi</name>
+    <version>1.0.0</version>
+    <name>eventchatr-api</name>
     <description>A REST API for a simple event thread based discussion app</description>
 
     <properties>

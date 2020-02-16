@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+  eventchatr-api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: eventchatr-api:latest
+    container_name: eventchatr-api
+    environment:
+      JDBC_DATABASE_USERNAME: eventAdmin
+      JDBC_DATABASE_PASSWORD: app
+      JDBC_DATABASE_URL: jdbc:postgresql://app-db/eventsDB
+    ports:
+      - "5001:5000"
+    depends_on:
+      - app-db
+    links:
+      - app-db
+
+  app-db:
+    image: "postgres:11"
+    container_name: app-db
+    restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/eventSQL
+    environment:
+      POSTGRES_USER: eventAdmin
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: eventsDB
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
